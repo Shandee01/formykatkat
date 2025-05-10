@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Letter for Kat</title>
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Nanum+Pen+Script" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #fdf6e3;
+      margin: 0;
+      font-family: 'Nanum Pen Script', cursive;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatUp 8s linear infinite;
+      opacity: 0.6;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    .reveal-button {
+      padding: 12px 25px;
+      background-color: #f0c674;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      font-family: 'Indie Flower', cursive;
+      box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+      z-index: 2;
+    }
+
+    .reveal-button:hover {
+      background-color: #ecc256;
+    }
+
+    .letter-wrapper {
+      perspective: 1200px;
+      margin-top: 30px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .aletter {
+  width: 600px;
+  padding: 50px 40px;
+  border: 1px solid grey;
+  font-size: 20px;
+  color: #000030;
+  line-height: 1.6;
+  text-align: justify;
+  background-image: url(http://www.publicdomainpictures.net/pictures/40000/velka/paper-texture-1359509235aJV.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transform: scale(0) rotateX(90deg) rotateY(90deg);
+  transition: transform 2.5s ease-in-out, opacity 2s;
+  opacity: 0;
+}
+
+    .aletter.show {
+      transform: scale(1) rotateX(0deg) rotateY(0deg);
+      opacity: 1;
+    }
+
+    .head {
+      font-family: 'Indie Flower', cursive;
+      font-size: 20px;
+      color: #000030;
+      transform: rotate(-5deg);
+      margin-bottom: 20px;
+    }
+    
+    .foot {
+      font-family: 'Indie Flower', cursive;
+      font-size: 20px;
+      color: #000030;
+      transform: rotate(-2deg);
+      margin-bottom: 10px;
+padding-left: 300px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hearts" id="hearts"></div>
+
+  <button class="reveal-button" id="openBtn">Open Letter</button>
+
+  <div class="letter-wrapper">
+    <div class="aletter" id="letter">
+      <div class="head">My Dearest Kat,</div>
+      i know things haven't been uneasy lately, i just want to make you a letter and i think this is the best way. alam kong mahirap for you para iprocess yung mga nangyari lately and i feel sorry for letting you feel that, all I can say now is that im not here to repeat the same mistake or ask for instant forgiveness. I’m here to show you, not just tell you, that i mean it this time. im learning from this. i don’t expect things to instantly go back to normal, but im willing to earn your trust back one step at a time. I want to be better, not perfect, but real, consistent, and honest with you. and please know that i really am committed sayo and im ready for everything that we could go through, i will learn and fix my mistakes, dahil nga gusto ko na ikaw ang makasama ko, til the last of my years. if you ever read this please know na mahal na mahal kita kat, and this time im not going anywhere, i have no intention na sayangin ang oras mo at hindi ko na hahayaan na maulit lang yung dati because i really want this to work out. im so grateful to have you dear ko, and i cant afford to lose you again, let me bawi and be better for you. i hope you know how much i love you, and no language could ever express how much love i have for you.<br><br>
+      have a nice day dear and i hope u ate lunch na, ingat kayo mamaya papuntang church!, <b>I LOVE YOU KATKAT KO.</b>
+      <div class="foot" style="text-indent: 90px;">Love, Seann</div>
+    </div>
+  </div>
+
+  <script>
+    const btn = document.getElementById('openBtn');
+    const letter = document.getElementById('letter');
+    const heartsContainer = document.getElementById('hearts');
+
+    btn.addEventListener('click', () => {
+      letter.classList.add('show');
+      btn.style.display = 'none';
+    });
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.animationDuration = `${5 + Math.random() * 5}s`;
+      heart.style.opacity = Math.random();
+      heart.style.transform = `rotate(45deg) scale(${0.8 + Math.random() * 1.2})`;
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
+    }
+
+    setInterval(createHeart, 500);
+  </script>
+
+</body>
+</html>
